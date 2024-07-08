@@ -1,0 +1,396 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-07-08T22:27:58.867Z",
+  "__export_source": "insomnia.desktop.app:v9.2.0",
+  "resources": [
+    {
+      "_id": "req_a31c00aa73554b98a00576cf2e64ec11",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720470816093,
+      "created": 1720467902059,
+      "url": "{{ _.base_url }}/register",
+      "name": "register",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Admin\",\n\t\"email\": \"admin@pixelsolutions.ro\",\n\t\"password\": \"qazwsxedC!\",\n\t\"password_confirmation\": \"qazwsxedC!\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token_admin }}",
+        "disabled": false
+      },
+      "metaSortKey": -1712835293960,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_5ed2208009c3413abe35fa40713d0340",
+      "parentId": "fld_12e09d9059914d8bbd7d8340be77747a",
+      "modified": 1720467902058,
+      "created": 1720467902058,
+      "name": "auth",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1712835290725,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_12e09d9059914d8bbd7d8340be77747a",
+      "parentId": "wrk_e269125805bd48dabd1b6f164b3ea1f8",
+      "modified": 1720468077833,
+      "created": 1720467902058,
+      "name": "portal",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1712835280787,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_e269125805bd48dabd1b6f164b3ea1f8",
+      "parentId": null,
+      "modified": 1720467902055,
+      "created": 1720467902055,
+      "name": "Incmply",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_941157b89c50442baacb859d06bdd71f",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720472862923,
+      "created": 1720467902059,
+      "url": "{{ _.base_url }}/sign-in",
+      "name": "sign in",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixelsolutions.ro\",\n\t\"password\": \"qazwsxedC!\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1712491611416,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_73a51d3b835542809cc1baae80f02a91",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720470820298,
+      "created": 1720467902060,
+      "url": "{{ _.base_url }}/forgot-password",
+      "name": "forgot password",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixelsolutions.ro\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1712276809826,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_6aa9caf3443e4b5e8292525f5882932c",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720474122725,
+      "created": 1720467902062,
+      "url": "{{ _.base_url }}/verify-token",
+      "name": "verify change password token",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixelsolutions.ro\",\n\t\"token\": \"1d2d24fbac79df5211da4fa019cf2d78c4e2e1ddf9e1a229415e048cf511643e\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1712244589587.5,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_47cbce9c912e466a995e901eecc3932a",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720474133675,
+      "created": 1720467902060,
+      "url": "{{ _.base_url }}/change-password",
+      "name": "change password",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixelsolutions.ro\",\n\t\"token\": \"1d2d24fbac79df5211da4fa019cf2d78c4e2e1ddf9e1a229415e048cf511643e\",\n\t\"password\": \"qazwsxedC!\",\n\t\"password_confirmation\": \"qazwsxedC!\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1712212369349,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e2f863a941714591ac14fb8ec9bcf785",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720474569332,
+      "created": 1720467902062,
+      "url": "{{ _.base_url }}/generate-qr-code?qr=true",
+      "name": "generate 2fa QR",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixel-solutions.ro\",\n\t\"password\": \"qazwsxedC\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token_admin }}"
+      },
+      "metaSortKey": -1712190889190,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_57cba2a38a8245c395c96bddc088c8f6",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720474660728,
+      "created": 1720467902061,
+      "url": "{{ _.base_url }}/verify-otp",
+      "name": "verify otp",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"admin@pixelsolutions.ro\",\n\t\"password\": \"qazwsxedC!\",\n\t\"one_time_password\": \"422489\"\n}"
+      },
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {
+        "type": "none"
+      },
+      "metaSortKey": -1712180149110.5,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_55aaaadbcda94001a218496cae796e36",
+      "parentId": "fld_5ed2208009c3413abe35fa40713d0340",
+      "modified": 1720470830260,
+      "created": 1720467902061,
+      "url": "{{ _.base_url }}/sign-out",
+      "name": "sign out",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "preRequestScript": "",
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/8.6.1"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token_admin }}"
+      },
+      "metaSortKey": -1712169409031,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_2b73f150cda44fb89383ef5f54110ccf",
+      "parentId": "wrk_e269125805bd48dabd1b6f164b3ea1f8",
+      "modified": 1720467902056,
+      "created": 1720467902056,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1712833679732,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_2f9395e9d83e44ababd5468573dd3f0c",
+      "parentId": "wrk_e269125805bd48dabd1b6f164b3ea1f8",
+      "modified": 1720467902057,
+      "created": 1720467902057,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_783f197eb7854b3bad21c81d82401983",
+      "parentId": "wrk_e269125805bd48dabd1b6f164b3ea1f8",
+      "modified": 1720467902111,
+      "created": 1720467902111,
+      "fileName": "Incmply",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_e9b563e9e91742799d3789f870340a47",
+      "parentId": "env_2b73f150cda44fb89383ef5f54110ccf",
+      "modified": 1720476787947,
+      "created": 1720467902056,
+      "name": "local",
+      "data": {
+        "base_url": "http://incmply-backend.test/api",
+        "token_admin": "{% response 'body', 'req_941157b89c50442baacb859d06bdd71f', 'b64::JC50b2tlbg==::46b', 'never', 7200 %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "token_admin"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1712833692078,
+      "_type": "environment"
+    }
+  ]
+}

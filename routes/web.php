@@ -9,6 +9,6 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/', 'docs');
     Route::view('/docs', 'docs')->name('docs');
     Route::get('/docs/insomnia.json', function () {
-        return response()->file(storage_path('files/insomnia.json'));
+        return response()->file(storage_path('insomania/insomnia.json'));
     });
 });
