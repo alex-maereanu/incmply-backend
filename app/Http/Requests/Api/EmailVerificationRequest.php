@@ -3,41 +3,44 @@
 namespace App\Http\Requests\Api;
 
 
-use App\Models\User;
-use App\Rules\StrongPasswordRule;
+use App\Models\TenantUser;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Validator;
+use App\Rules\StrongPasswordRule;
 
 class EmailVerificationRequest extends FormRequest
 {
-    protected User $user;
+    /**
+     * @var \App\Models\TenantUser
+     */
+    public TenantUser $tenantUser;
 
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        $user = User::whereId($this->route('id'))->first();
+        $this->tenantUser = TenantUser::whereId($this->route('id'))->first();
 
-        if (empty($user)) {
+        if (empty($this->tenantUser)) {
             return false;
         }
 
-        $this->user = $user;
+        $hashParameters = explode('_', (string)$this->route('hash'));
 
-        if ( ! hash_equals(sha1($user->getEmailForVerification()), (string)$this->route('hash'))) {
+        if ( ! hash_equals(sha1($this->tenantUser->tenant_id), $hashParameters[0])) {
             return false;
         }
 
-        if ($this->user->hasVerifiedEmail()) {
+        if ( ! hash_equals(sha1($this->tenantUser->getEmailForVerification()), $hashParameters[1])) {
             return false;
         }
 
-        Auth::login($this->user);
+        if ($this->tenantUser->hasVerifiedEmail()) {
+            return false;
+        }
 
         return true;
     }
@@ -47,7 +50,7 @@ class EmailVerificationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name'                  => ['required', 'string', 'max:255'],
@@ -61,12 +64,12 @@ class EmailVerificationRequest extends FormRequest
      *
      * @return void
      */
-    public function fulfill()
+    public function fulfill(): void
     {
-        if ( ! $this->user->hasVerifiedEmail()) {
-            $this->user->markEmailAsVerified();
+        if ( ! $this->tenantUser->hasVerifiedEmail()) {
+            $this->tenantUser->markEmailAsVerified();
 
-            event(new Verified($this->user));
+            event(new Verified($this->tenantUser));
         }
     }
 }

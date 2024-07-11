@@ -2,20 +2,20 @@
 
 namespace App\Services\Api;
 
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Tenant\Role;
+use App\Models\Tenant\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
 use PragmaRX\Google2FALaravel\Google2FA;
+use Symfony\Component\HttpFoundation\Response;
 
 class GoogleAuthService
 {
     /**
      * Generate Google 2fa Authenticator QR
      *
-     * @param \App\Models\User|\Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \App\Models\Tenant\User|\Illuminate\Contracts\Auth\Authenticatable $user
      *
      * @return array
      * @throws \PragmaRX\Google2FAQRCode\Exceptions\MissingQrCodeServiceException
@@ -47,7 +47,7 @@ class GoogleAuthService
     }
 
     /**
-     * @param \App\Models\User|\Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \App\Models\Tenant\User|\Illuminate\Contracts\Auth\Authenticatable $user
      * @param string $oneTimePassword
      *
      * @return \Illuminate\Http\Response
@@ -74,7 +74,7 @@ class GoogleAuthService
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param \App\Models\Tenant\User $user
      * @param string $oneTimePassword
      *
      * @return \Illuminate\Http\Response
@@ -96,7 +96,7 @@ class GoogleAuthService
     }
 
     /**
-     * @param \App\Models\User|\Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \App\Models\Tenant\User|\Illuminate\Contracts\Auth\Authenticatable $user
      * @param string $oneTimePassword
      *
      * @return \Illuminate\Http\Response

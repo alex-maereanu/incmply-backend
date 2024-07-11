@@ -138,15 +138,6 @@ return new class extends Migration {
             $table->unique(['name', 'guard_name']);
         });
 
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
-
         Schema::create('users', function (Blueprint $table) {
             $table->char('id', 36)->primary();
             $table->boolean('is_otp_enabled')->default(false);
@@ -200,8 +191,6 @@ return new class extends Migration {
         });
 
         Schema::dropIfExists('users');
-
-        Schema::dropIfExists('sessions');
 
         Schema::dropIfExists('roles');
 

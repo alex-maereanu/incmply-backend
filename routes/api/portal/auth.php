@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Portal\AuthController as ClientAuthController;
+use App\Models\Tenant\Role;
 use Illuminate\Support\Facades\Route;
-use App\Models\Role;
 
 Route::group(['prefix' => '/'], function () {
     Route::post('/sign-in', [ClientAuthController::class, 'signIn']);

@@ -8,7 +8,7 @@ use App\Http\Requests\Api\AuthResetPasswordRequest;
 use App\Http\Requests\Api\AuthVerifyTokenRequest;
 use App\Http\Requests\Api\EmailVerificationRequest;
 use App\Http\Requests\Api\OtpRequest;
-use App\Models\User;
+use App\Models\Tenant\User;
 use App\Services\Api\AuthService;
 use App\Services\Api\GoogleAuthService;
 use Illuminate\Http\Request;

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api\Portal;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Portal\RegisterRequest;
 use App\Http\Requests\Api\AuthSignInRequest;
-use App\Models\Role;
+use App\Http\Requests\Api\Portal\RegisterRequest;
+use App\Models\Tenant\Role;
+use App\Services\Api\Center\AuthService;
 use Illuminate\Http\Response;
-use App\Services\Api\Portal\AuthService;
 
 class AuthController extends Controller
 {
     /**
      * @param \App\Http\Requests\Api\Portal\RegisterRequest $request
-     * @param \App\Services\Api\Portal\AuthService $authService
+     * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception|\Throwable
