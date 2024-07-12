@@ -23,7 +23,7 @@ Route::middleware([
     InitializeTenancyByPath::class,
     PreventAccessFromCentralDomains::class,
 ])
-     ->prefix('/{tenant}/api')
+     ->prefix('/{tenant}')
      ->group(function () {
          Route::get('/', function () {
 
@@ -34,6 +34,9 @@ Route::middleware([
 //             dd($centralUsers->toArray());
 //
 //             dd(\App\Models\Tentant\User::all()->toArray());
+
+//             return \App\Models\Tenant\UseCase::whereId('1')->with(['user'])->first();
+//             return  \App\Models\User::whereId('9c7ff1c8-8713-4c55-bc83-feb13a2fa59d')->with(['useCases'])->first();
 
              return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
          });

@@ -16,11 +16,11 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role, $permission = null)
     {
         if (!$request->user()->hasRole($role)) {
-            return response()->json(['error' => __('auth.accessDenied')], 403);
+            return response()->json(['error' => __('auth.accessDenied')], Response::HTTP_FORBIDDEN);
         }
 
         if ($permission !== null && !$request->user()->can($permission)) {
-            return response()->json(['error' => __('auth.accessDenied')], 403);
+            return response()->json(['error' => __('auth.accessDenied')], Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);

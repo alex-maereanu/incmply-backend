@@ -13,10 +13,13 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'signedOut' => 'Successfully signed out.',
-    'accessDenied' => 'Access denied',
-
+    'failed'          => 'These credentials do not match our records.',
+    'password'        => 'The provided password is incorrect.',
+    'throttle'        => 'Too many login attempts. Please try again in :seconds seconds.',
+    'signedOut'       => 'Successfully signed out.',
+    'accessDenied'    => 'Access denied',
+    'registerSuccess' => 'Successfully registered.',
+    'userActivated'   => 'Successfully activated user.',
+    'invitationSend'  => 'Successfully send invitation.',
+    'mailNotVerified' => 'Your email address is not verified.',
 ];

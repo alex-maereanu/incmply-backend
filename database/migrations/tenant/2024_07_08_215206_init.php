@@ -61,57 +61,6 @@ return new class extends Migration {
             $table->primary(['role_id', 'model_id', 'model_type']);
         });
 
-        Schema::create('oauth_access_tokens', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
-            $table->char('user_id', 36)->nullable()->index();
-            $table->char('client_id', 36);
-            $table->string('name')->nullable();
-            $table->text('scopes')->nullable();
-            $table->boolean('revoked');
-            $table->timestamps();
-            $table->dateTime('expires_at')->nullable();
-        });
-
-        Schema::create('oauth_auth_codes', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->char('client_id', 36);
-            $table->text('scopes')->nullable();
-            $table->boolean('revoked');
-            $table->dateTime('expires_at')->nullable();
-        });
-
-        Schema::create('oauth_clients', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->string('name');
-            $table->string('secret', 100)->nullable();
-            $table->string('provider')->nullable();
-            $table->text('redirect');
-            $table->boolean('personal_access_client');
-            $table->boolean('password_client');
-            $table->boolean('revoked');
-            $table->timestamps();
-        });
-
-        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('client_id', 36);
-            $table->timestamps();
-        });
-
-        Schema::create('oauth_refresh_tokens', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
-            $table->string('access_token_id', 100)->index();
-            $table->boolean('revoked');
-            $table->dateTime('expires_at')->nullable();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
 
         Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -138,18 +87,6 @@ return new class extends Migration {
             $table->unique(['name', 'guard_name']);
         });
 
-        Schema::create('users', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->boolean('is_otp_enabled')->default(false);
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->text('google2fa_secret')->nullable();
-            $table->timestamps();
-        });
-
         Schema::table('model_has_permissions', function (Blueprint $table) {
             $table->foreign(['permission_id'])->references(['id'])->on('permissions')->onUpdate('restrict')->onDelete('cascade');
         });
@@ -161,10 +98,6 @@ return new class extends Migration {
         Schema::table('role_has_permissions', function (Blueprint $table) {
             $table->foreign(['permission_id'])->references(['id'])->on('permissions')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['role_id'])->references(['id'])->on('roles')->onUpdate('restrict')->onDelete('cascade');
-        });
-
-        Schema::table('oauth_access_tokens', function (Blueprint $table) {
-            $table->foreign(['user_id'], 'oauth_access_tokens_ibfk_1')->references(['id'])->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -186,12 +119,6 @@ return new class extends Migration {
             $table->dropForeign('model_has_permissions_permission_id_foreign');
         });
 
-        Schema::table('oauth_access_tokens', function (Blueprint $table) {
-            $table->dropForeign('oauth_access_tokens_ibfk_1');
-        });
-
-        Schema::dropIfExists('users');
-
         Schema::dropIfExists('roles');
 
         Schema::dropIfExists('role_has_permissions');
@@ -199,16 +126,6 @@ return new class extends Migration {
         Schema::dropIfExists('permissions');
 
         Schema::dropIfExists('password_reset_tokens');
-
-        Schema::dropIfExists('oauth_refresh_tokens');
-
-        Schema::dropIfExists('oauth_personal_access_clients');
-
-        Schema::dropIfExists('oauth_clients');
-
-        Schema::dropIfExists('oauth_auth_codes');
-
-        Schema::dropIfExists('oauth_access_tokens');
 
         Schema::dropIfExists('model_has_roles');
 

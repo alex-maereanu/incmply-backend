@@ -14,7 +14,8 @@ use Stancl\Tenancy\Database\Concerns\HasDatabase;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property array|null $data
- * @property-read \App\Models\TenantUser|null $tenantUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
  * @method static \Stancl\Tenancy\Database\TenantCollection<int, static> all($columns = ['*'])
  * @method static \Stancl\Tenancy\Database\TenantCollection<int, static> get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
@@ -33,8 +34,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     /**
      * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
-    public function tenantUsers(): Relation
+    public function users(): Relation
     {
-        return $this->hasMany(TenantUser::class, 'tenant_id', 'id');
+        return $this->belongsToMany(User::class, 'tenants_users', 'tenant_id', 'user_id');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Center\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthVerifyTokenRequest extends FormRequest
+class AuthSignInRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class AuthVerifyTokenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:255',
-            'token' => 'required|string',
+            'email'    => 'required|email|required',
+            'password' => 'required|string',
         ];
     }
 }

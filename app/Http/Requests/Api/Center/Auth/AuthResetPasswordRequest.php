@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Center\Auth;
 
 use App\Models\Tenant;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +29,6 @@ class AuthResetPasswordRequest extends FormRequest
             'token'                 => 'required',
             'password'              => 'required|min:8|max:255',
             'password_confirmation' => 'required|same:password',
-            'tenant_ids.*'          => "required|string|uuid|exists:{$tenant},id",
         ];
     }
 }

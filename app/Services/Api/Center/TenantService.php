@@ -4,19 +4,21 @@ namespace App\Services\Api\Center;
 
 
 use App\Models\Tenant;
-use App\Models\TenantUser;
+use App\Models\User;
 
 class TenantService
 {
     /**
-     * @param \App\Models\TenantUser $tenantUsers
+     * @param \App\Models\User $user
      *
      * @return \App\Models\Tenant
      */
-    public function create(TenantUser $tenantUsers): Tenant
+    public function create(User $user): Tenant
     {
-        return Tenant::create([
-            'id' => $tenantUsers->tenant_id,
-        ]);
+        $tenant = Tenant::create();
+
+        $tenant->users()->sync([$user->id => ['created_at' => now(), 'updated_at' => now()]]);
+
+        return $tenant;
     }
 }

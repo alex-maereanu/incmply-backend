@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Jobs\CreateTenantUserJob;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 use Stancl\JobPipeline\JobPipeline;
 use Stancl\Tenancy\Events;
 use Stancl\Tenancy\Jobs;
@@ -30,7 +28,6 @@ class TenancyServiceProvider extends ServiceProvider
                     Jobs\CreateDatabase::class,
                     Jobs\MigrateDatabase::class,
                     Jobs\SeedDatabase::class,
-                    CreateTenantUserJob::class,
 
                     // Your own jobs to prepare the tenant.
                     // Provision API keys, create S3 buckets, anything you want!
@@ -106,8 +103,6 @@ class TenancyServiceProvider extends ServiceProvider
         $this->mapRoutes();
 
         $this->makeTenancyMiddlewareHighestPriority();
-
-        Passport::loadKeysFrom(base_path('storage'));
     }
 
     protected function bootEvents()
@@ -126,9 +121,10 @@ class TenancyServiceProvider extends ServiceProvider
     protected function mapRoutes()
     {
         $this->app->booted(function () {
-            if (file_exists(base_path('routes/tenant.php'))) {
+            if (file_exists(base_path('routes/api/tenant/base.php'))) {
                 Route::namespace(static::$controllerNamespace)
-                     ->group(base_path('routes/tenant.php'));
+                    ->prefix('/api')
+                     ->group(base_path('routes/api/tenant/base.php'));
             }
         });
     }

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Center\Auth;
 
 
-use App\Models\TenantUser;
+use App\Models\User;
+use App\Rules\StrongPasswordRule;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\StrongPasswordRule;
 
 class EmailVerificationRequest extends FormRequest
 {
     /**
-     * @var \App\Models\TenantUser
+     * @var \App\Models\User
      */
-    public TenantUser $tenantUser;
+    public User $user;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,23 +22,17 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->tenantUser = TenantUser::whereId($this->route('id'))->first();
+        $this->user = User::whereId($this->route('id'))->first();
 
-        if (empty($this->tenantUser)) {
+        if (empty($this->user)) {
             return false;
         }
 
-        $hashParameters = explode('_', (string)$this->route('hash'));
-
-        if ( ! hash_equals(sha1($this->tenantUser->tenant_id), $hashParameters[0])) {
+        if ( ! hash_equals(sha1($this->user->getEmailForVerification()), (string)$this->route('hash'))) {
             return false;
         }
 
-        if ( ! hash_equals(sha1($this->tenantUser->getEmailForVerification()), $hashParameters[1])) {
-            return false;
-        }
-
-        if ($this->tenantUser->hasVerifiedEmail()) {
+        if ($this->user->hasVerifiedEmail()) {
             return false;
         }
 
@@ -66,10 +60,10 @@ class EmailVerificationRequest extends FormRequest
      */
     public function fulfill(): void
     {
-        if ( ! $this->tenantUser->hasVerifiedEmail()) {
-            $this->tenantUser->markEmailAsVerified();
+        if ( ! $this->user->hasVerifiedEmail()) {
+            $this->user->markEmailAsVerified();
 
-            event(new Verified($this->tenantUser));
+            event(new Verified($this->user));
         }
     }
 }

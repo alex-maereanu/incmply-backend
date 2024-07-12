@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\Center;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\AuthForgetPasswordRequest;
-use App\Http\Requests\Api\AuthResetPasswordRequest;
-use App\Http\Requests\Api\AuthSignInRequest;
-use App\Http\Requests\Api\AuthVerifyTokenRequest;
-use App\Http\Requests\Api\EmailVerificationRequest;
-use App\Http\Requests\Api\Portal\RegisterRequest;
+use App\Http\Requests\Api\Center\Auth\AuthForgetPasswordRequest;
+use App\Http\Requests\Api\Center\Auth\AuthResetPasswordRequest;
+use App\Http\Requests\Api\Center\Auth\AuthSignInRequest;
+use App\Http\Requests\Api\Center\Auth\AuthVerifyTokenRequest;
+use App\Http\Requests\Api\Center\Auth\EmailVerificationRequest;
+use App\Http\Requests\Api\Center\Auth\RegisterRequest;
 use App\Services\Api\Center\AuthService;
 use App\Services\Api\Center\TenantService;
 use Illuminate\Http\Response as HttpResponse;
@@ -16,7 +16,7 @@ use Illuminate\Http\Response as HttpResponse;
 class AuthController extends Controller
 {
     /**
-     * @param \App\Http\Requests\Api\Portal\RegisterRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\RegisterRequest $request
      * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response
@@ -28,7 +28,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Api\EmailVerificationRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\EmailVerificationRequest $request
      * @param \App\Services\Api\Center\TenantService $tenantService
      *
      * @return \Illuminate\Http\Response
@@ -37,13 +37,13 @@ class AuthController extends Controller
     {
         $request->fulfill();
 
-        $tenantService->create($request->tenantUser);
+        $tenantService->create($request->user);
 
         return response(['message' => __('auth.userActivated')]);
     }
 
     /**
-     * @param \App\Http\Requests\Api\AuthSignInRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\AuthSignInRequest $request
      * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response
@@ -54,7 +54,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Api\AuthForgetPasswordRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\AuthForgetPasswordRequest $request
      * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response
@@ -65,7 +65,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Api\AuthVerifyTokenRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\AuthVerifyTokenRequest $request
      * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response
@@ -76,7 +76,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Api\AuthResetPasswordRequest $request
+     * @param \App\Http\Requests\Api\Center\Auth\AuthResetPasswordRequest $request
      * @param \App\Services\Api\Center\AuthService $authService
      *
      * @return \Illuminate\Http\Response

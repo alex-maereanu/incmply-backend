@@ -15,16 +15,19 @@ class TenantController extends Controller
     public function deleteAll(): HttpResponse
     {
         // TODO: delete function and route
-        if(config('app.env') !== 'local'){
+        if (config('app.env') !== 'local') {
             return response([], Response::HTTP_FORBIDDEN);
         }
         /** @var Tenant[] $tenants */
-        $tenants = Tenant::with(['tenantUsers'])->get();
+        $tenants = Tenant::with(['users'])->get();
         foreach ($tenants as $tenant) {
+            $tenant->run(function() use ($tenant) {
+                foreach ($tenant->users as $user) {
+                    $user->delete();
+                }
+            });
+
             $tenant->delete();
-            foreach ($tenant->tenantUsers as $tenantUser) {
-                $tenantUser->delete();
-            }
         }
 
         return response([]);
