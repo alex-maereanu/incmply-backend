@@ -25,6 +25,8 @@ Route::middleware([
 ])
      ->prefix('/{tenant}')
      ->group(function () {
+         require base_path('routes/api/tenant/cases.php');
+
          Route::get('/', function () {
 
 //             $centralUsers = tenancy()->central(function ($tenant) {

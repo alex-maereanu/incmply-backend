@@ -87,6 +87,10 @@ return new class extends Migration {
             $table->unique(['name', 'guard_name']);
         });
 
+        Schema::create('cases', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+        });
+
         Schema::table('model_has_permissions', function (Blueprint $table) {
             $table->foreign(['permission_id'])->references(['id'])->on('permissions')->onUpdate('restrict')->onDelete('cascade');
         });
