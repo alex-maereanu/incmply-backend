@@ -8,10 +8,14 @@ use App\Http\Requests\Api\Center\Auth\AuthResetPasswordRequest;
 use App\Http\Requests\Api\Center\Auth\AuthSignInRequest;
 use App\Http\Requests\Api\Center\Auth\AuthVerifyTokenRequest;
 use App\Http\Requests\Api\Center\Auth\EmailVerificationRequest;
+use App\Http\Requests\Api\Center\Auth\OtpRequest;
 use App\Http\Requests\Api\Center\Auth\RegisterRequest;
+use App\Models\User;
 use App\Services\Api\Center\AuthService;
 use App\Services\Api\Center\TenantService;
+use App\Services\Api\GoogleAuthService;
 use Illuminate\Http\Response as HttpResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -87,6 +91,29 @@ class AuthController extends Controller
     public function changePassword(AuthResetPasswordRequest $request, AuthService $authService): HttpResponse
     {
         return $authService->changePassword($request);
+    }
+
+    /**
+     * @param \App\Http\Requests\Api\Center\Auth\OtpRequest $request
+     * @param \App\Services\Api\GoogleAuthService $googleAuthService
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+     * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+     * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+     */
+    public function verifyOTP(OtpRequest $request, GoogleAuthService $googleAuthService): HttpResponse
+    {
+        $credentials = $request->only('email', 'password');
+
+        /** @var User $user */
+        if ( ! $user = User::validateAndGetUserByCredentials($credentials)) {
+            return response(['message' => __('auth.failed')], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $oneTimePassword = $request->get('one_time_password');
+
+        return $googleAuthService->verifyOTP($user, $oneTimePassword);
     }
 
 }

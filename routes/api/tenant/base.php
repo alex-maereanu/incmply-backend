@@ -26,6 +26,7 @@ Route::middleware([
      ->prefix('/{tenant}')
      ->group(function () {
          require base_path('routes/api/tenant/cases.php');
+         require base_path('routes/api/tenant/settings.php');
 
          Route::get('/', function () {
 
